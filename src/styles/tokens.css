@@ -1,17 +1,22 @@
 @theme {
-  /* Brand colors — REPLACE with Scout's values in Phase 1 */
-  --color-brand-dominant: #1f3a2e; /* placeholder forest green */
-  --color-brand-secondary: #2a4a3a; /* placeholder shifted hue */
-  --color-accent: #c9ff3a; /* placeholder electric lime */
+  /* Scout Brewing & Co. — heritage cream/navy/red palette
+     (Source: docs/BRAND-AUDIT.md) */
 
-  /* Tinted neutrals (NO greys per Decision Log #5) */
-  --color-off-white: #f4f1ea;
-  --color-near-black: #0a0a0a;
+  /* Brand colors */
+  --color-cream: #f1e8cb;
+  --color-cream-dark: #e8dbb8;
+  --color-navy: #203145;
+  --color-navy-light: #2c4460;
+  --color-red: #cf3238;
+  --color-blue: #1f60ad;
+  --color-ink: #14202e;
+  --color-muted: #8a9a8f;
 
-  /* Typography roles */
-  --font-display: 'PP Neue Machina', system-ui, sans-serif;
-  --font-body: 'Söhne', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* Typography roles — wired via next/font in layout.tsx, exposed as CSS vars */
+  --font-display: var(--font-abril), 'Playfair Display', Georgia, serif;
+  --font-serif: var(--font-source-serif), 'Source Serif Pro', Georgia, serif;
+  --font-sans: var(--font-inter), 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   /* Motion */
   --ease-decisive: cubic-bezier(0.65, 0, 0.35, 1);
