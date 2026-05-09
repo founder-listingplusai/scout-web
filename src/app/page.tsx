@@ -1,16 +1,44 @@
+import TopNav from '@/components/layout/top-nav';
+import Hero from '@/components/home/hero';
+
 export default function Home() {
   return (
-    <main className="bg-cream text-navy flex min-h-screen flex-col items-center justify-center gap-3">
-      <p className="text-navy/60 font-mono text-[11px] tracking-[0.2em] uppercase">
-        Brewed in Melbourne · Est. 2024
-      </p>
-      <h1 className="font-display text-navy text-7xl leading-none tracking-tight md:text-9xl">
-        SCOUT
-      </h1>
-      <p className="text-navy/55 font-mono text-[11px] tracking-[0.3em] uppercase">Brewing & Co.</p>
-      <p className="text-navy/70 mt-8 max-w-md text-center font-serif text-base leading-relaxed italic">
-        A no-nonsense Australian lager. Crisp, cold, classic — and dangerously drinkable.
-      </p>
-    </main>
+    <>
+      <TopNav />
+      <main>
+        <Hero />
+
+        {/* Phase 3b placeholder sections — anchors for nav links */}
+        <section
+          id="lager"
+          className="bg-cream-dark flex min-h-[50vh] items-center justify-center"
+          aria-label="Lager section — coming in Phase 3b"
+        >
+          <p className="text-navy/30 font-mono text-[11px] tracking-[0.2em] uppercase">
+            Lager · Phase 3b
+          </p>
+        </section>
+
+        <section
+          id="lowcarb"
+          className="bg-cream flex min-h-[50vh] items-center justify-center"
+          aria-label="Low Carb section — coming in Phase 3b"
+        >
+          <p className="text-navy/30 font-mono text-[11px] tracking-[0.2em] uppercase">
+            Low Carb · Phase 3b
+          </p>
+        </section>
+
+        <section
+          id="story"
+          className="bg-cream-dark flex min-h-[50vh] items-center justify-center"
+          aria-label="Story section — coming in Phase 3b"
+        >
+          <p className="text-navy/30 font-mono text-[11px] tracking-[0.2em] uppercase">
+            Story · Phase 3b
+          </p>
+        </section>
+      </main>
+    </>
   );
 }
