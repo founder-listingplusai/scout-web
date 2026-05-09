@@ -1,0 +1,21 @@
+@theme {
+  /* Brand colors — REPLACE with Scout's values in Phase 1 */
+  --color-brand-dominant: #1f3a2e; /* placeholder forest green */
+  --color-brand-secondary: #2a4a3a; /* placeholder shifted hue */
+  --color-accent: #c9ff3a; /* placeholder electric lime */
+
+  /* Tinted neutrals (NO greys per Decision Log #5) */
+  --color-off-white: #f4f1ea;
+  --color-near-black: #0a0a0a;
+
+  /* Typography roles */
+  --font-display: 'PP Neue Machina', system-ui, sans-serif;
+  --font-body: 'Söhne', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Motion */
+  --ease-decisive: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-micro: 200ms;
+  --duration-ui: 400ms;
+  --duration-hero: 1200ms;
+}
