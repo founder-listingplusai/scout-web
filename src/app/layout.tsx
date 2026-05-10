@@ -1,5 +1,6 @@
 import { Abril_Fatface, Inter, JetBrains_Mono, Source_Serif_4 } from 'next/font/google';
 import './globals.css';
+import AgeGate from '@/components/age-gate/age-gate';
 
 const abril = Abril_Fatface({ subsets: ['latin'], weight: '400', variable: '--font-abril' });
 const sourceSerif = Source_Serif_4({
@@ -30,7 +31,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${abril.variable} ${sourceSerif.variable} ${inter.variable} ${jetbrains.variable}`}
     >
-      <body className="bg-cream text-navy font-sans antialiased">{children}</body>
+      <body className="bg-cream text-navy font-sans antialiased">
+        <AgeGate />
+        {children}
+      </body>
     </html>
   );
 }
