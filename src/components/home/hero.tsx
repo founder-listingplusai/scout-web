@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { VARIANTS } from '@/lib/products/data';
 import VariantCard from './variant-card';
+import BottleScene from './bottle-scene';
 
 const lager = VARIANTS[0]!;
 const lowcarb = VARIANTS[1]!;
@@ -44,13 +45,15 @@ export default function Hero() {
             SCOUT
           </h1>
 
-          {/* ─── BOTTLE IMAGE ─── */}
-          {/*
-            Absolutely centred, z-20 above wordmark.
-            Bottom-aligned so it grounds naturally on the wordmark baseline.
-          */}
+          {/* ─── BOTTLE: WebGL on desktop (with static fallback), image on mobile ─── */}
+          {/* Desktop: BottleScene handles WebGL/static/reduced-motion switching */}
+          <div className="pointer-events-none absolute bottom-[14%] left-1/2 z-20 hidden -translate-x-1/2 md:flex md:items-end md:justify-center">
+            <BottleScene variant={lager} />
+          </div>
+
+          {/* Mobile: always static image */}
           <div
-            className="pointer-events-none absolute bottom-[14%] left-1/2 z-20 -translate-x-1/2"
+            className="pointer-events-none absolute bottom-[14%] left-1/2 z-20 block -translate-x-1/2 md:hidden"
             aria-hidden="true"
           >
             <Image
@@ -60,10 +63,7 @@ export default function Hero() {
               height={824}
               priority
               className="drop-shadow-[0_28px_56px_rgba(32,49,69,0.16)]"
-              style={{
-                width: 'clamp(180px, 24vw, 400px)',
-                height: 'auto',
-              }}
+              style={{ width: 'clamp(180px, 24vw, 400px)', height: 'auto' }}
             />
           </div>
 
