@@ -1,2 +1,27 @@
 @import 'tailwindcss';
 @import '../styles/tokens.css';
+
+/* ── Global focus ring ───────────────────────────────────────────────────────
+   All interactive elements get a visible red ring on keyboard focus.
+   :focus-visible ensures mouse clicks don't trigger the ring. */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
+
+/* Remove the default blue ring that appears behind our custom ring */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Smooth scroll anchor offset ─────────────────────────────────────────────
+   Compensate for the fixed top nav (72px desktop / 56px mobile). */
+:target {
+  scroll-margin-top: 80px;
+}
+
+/* ── Selection colour ────────────────────────────────────────────────────────*/
+::selection {
+  background: var(--color-red);
+  color: var(--color-cream);
+}

@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <TopNav />
-      <main>
+      <main id="main-content">
         {/* Hero handles its own entrance animation internally */}
         <Hero />
 

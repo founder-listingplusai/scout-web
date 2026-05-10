@@ -1,10 +1,9 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 
 // ─── External cookie store ───────────────────────────────────────────────────
-// Module-level so the store survives re-renders without useState.
 
 const COOKIE = 'scout_age_ok';
 const DAYS = 30;
@@ -28,12 +27,10 @@ function hasCookie(): boolean {
   return document.cookie.split(';').some((c) => c.trim().startsWith(`${COOKIE}=`));
 }
 
-/** Returns true when the age gate should be HIDDEN (verified or SSR). */
 function getSnapshot() {
   return hasCookie();
 }
 
-/** On the server we always hide the gate (no flash). */
 function getServerSnapshot() {
   return true;
 }
@@ -45,12 +42,14 @@ export function markAgeVerified() {
   notify();
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const SELECT =
   'flex-1 bg-cream border border-navy/20 text-navy font-mono text-[12px] tracking-[0.08em] px-2 py-3 outline-none focus:border-navy transition-colors duration-200 appearance-none cursor-pointer';
+
+const FOCUSABLE = 'select, button, a[href], input, [tabindex]:not([tabindex="-1"])';
 
 function isAtLeast18(d: number, m: number, y: number): boolean {
   const today = new Date();
@@ -58,16 +57,50 @@ function isAtLeast18(d: number, m: number, y: number): boolean {
   return new Date(y, m - 1, d) <= cutoff;
 }
 
+// ─── Public component ────────────────────────────────────────────────────────
+
 export default function AgeGate() {
   const verified = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
   if (verified) return null;
-
   return <AgeGateModal />;
 }
 
+// ─── Modal ───────────────────────────────────────────────────────────────────
+
 function AgeGateModal() {
+  const dialogRef = useRef<HTMLDivElement>(null);
   const currentYear = new Date().getFullYear();
+
+  // Autofocus first select + focus trap on Tab/Shift-Tab
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const first = dialog.querySelector<HTMLElement>(FOCUSABLE);
+    first?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key !== 'Tab') return;
+      const all = Array.from(dialog!.querySelectorAll<HTMLElement>(FOCUSABLE));
+      if (all.length === 0) return;
+      const firstEl = all[0]!;
+      const lastEl = all[all.length - 1]!;
+      if (e.shiftKey) {
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    }
+
+    dialog.addEventListener('keydown', onKeyDown);
+    return () => dialog.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -76,13 +109,14 @@ function AgeGateModal() {
     const m = Number(fd.get('month'));
     const y = Number(fd.get('year'));
 
+    const errorEl = e.currentTarget.querySelector<HTMLElement>('[data-error]');
+
     if (!d || !m || !y) {
-      (e.currentTarget.querySelector('[data-error]') as HTMLElement | null)?.setAttribute(
-        'data-msg',
-        'Please complete your date of birth.',
-      );
+      if (errorEl) errorEl.textContent = 'Please complete your date of birth.';
       return;
     }
+
+    if (errorEl) errorEl.textContent = '';
 
     if (isAtLeast18(d, m, y)) {
       markAgeVerified();
@@ -93,6 +127,7 @@ function AgeGateModal() {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby="age-gate-heading"
@@ -121,7 +156,7 @@ function AgeGateModal() {
           ◆ 18+ ONLY
         </p>
 
-        {/* Headline — h2 because the page <h1> is the SCOUT hero wordmark */}
+        {/* Headline */}
         <h2
           id="age-gate-heading"
           className="font-display text-navy mb-3 text-[38px] leading-none tracking-tight"
@@ -135,11 +170,10 @@ function AgeGateModal() {
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
-          {/* DOB row */}
           <div className="mb-1 flex gap-2">
             <select
               name="day"
-              aria-label="Day"
+              aria-label="Day of birth"
               defaultValue=""
               className={SELECT}
               style={{ borderRadius: 2 }}
@@ -156,7 +190,7 @@ function AgeGateModal() {
 
             <select
               name="month"
-              aria-label="Month"
+              aria-label="Month of birth"
               defaultValue=""
               className={SELECT}
               style={{ borderRadius: 2 }}
@@ -173,7 +207,7 @@ function AgeGateModal() {
 
             <select
               name="year"
-              aria-label="Year"
+              aria-label="Year of birth"
               defaultValue=""
               className={`${SELECT} flex-[1.4]`}
               style={{ borderRadius: 2 }}
@@ -189,10 +223,14 @@ function AgeGateModal() {
             </select>
           </div>
 
-          {/* Error slot — shown via client-side validation */}
-          <p data-error className="text-red mb-3 h-4 font-mono text-[10px] tracking-[0.12em]" />
+          {/* Error — textContent set imperatively to avoid re-render */}
+          <p
+            data-error
+            role="alert"
+            aria-live="polite"
+            className="text-red mb-3 h-4 font-mono text-[10px] tracking-[0.12em]"
+          />
 
-          {/* CTA */}
           <button
             type="submit"
             className="bg-red text-cream hover:bg-navy focus-visible:ring-red mt-2 w-full py-4 font-mono text-[11px] font-bold tracking-[0.22em] uppercase transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
@@ -202,7 +240,6 @@ function AgeGateModal() {
           </button>
         </form>
 
-        {/* Fine print */}
         <p className="text-navy/35 mt-7 font-mono text-[9px] leading-relaxed tracking-[0.1em] uppercase">
           By entering you confirm you are of legal drinking age in your country.{' '}
           <a
