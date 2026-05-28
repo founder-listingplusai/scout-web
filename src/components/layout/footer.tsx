@@ -17,9 +17,7 @@ export default function Footer() {
             </p>
             {/* Tagline — serif italic */}
             <p className="text-cream/60 mt-2 font-serif text-[13px] leading-snug italic">
-              &ldquo;Get out there.
-              <br />
-              Drink something honest.&rdquo;
+              &ldquo;Keep exploring.&rdquo;
             </p>
           </div>
 
@@ -35,7 +33,7 @@ export default function Footer() {
                   { href: '#lowcarb', label: 'Low Carb' },
                   { href: '#story', label: 'Story' },
                   {
-                    href: 'mailto:hello@scoutbrewing.com.au?subject=Notify+me+%E2%80%93+Scout+Brewing',
+                    href: 'mailto:scoutbrewingandco@gmail.com?subject=Notify+me+%E2%80%93+Scout+Brewing',
                     label: 'Notify me',
                   },
                 ].map(({ href, label }) => (
@@ -61,10 +59,10 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 <li>
                   <a
-                    href="mailto:hello@scoutbrewing.com.au"
+                    href="mailto:scoutbrewingandco@gmail.com"
                     className="text-cream/70 hover:text-cream font-mono text-[11px] tracking-[0.06em] lowercase transition-colors duration-200"
                   >
-                    hello@scoutbrewing.com.au
+                    scoutbrewingandco@gmail.com
                   </a>
                 </li>
                 <li>
@@ -90,10 +88,6 @@ export default function Footer() {
               <li className="text-cream/50 font-mono text-[10px]">
                 {/* TODO: real ABN */}
                 ABN 12 345 678 901
-              </li>
-              <li className="text-cream/50 font-mono text-[10px]">
-                {/* TODO: real VIC liquor license number */}
-                VIC LIQUOR LICENCE PLACEHOLDER
               </li>
               <li>
                 <a

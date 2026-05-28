@@ -13,7 +13,7 @@ export default function FieldNotes() {
       <div className="mx-auto max-w-2xl">
         {/* Eyebrow — mono uppercase, navy reduced opacity */}
         <p className="text-navy/50 mb-8 font-mono text-[11px] tracking-[0.28em] uppercase">
-          ◆ FIELD NOTES NO.&nbsp;01
+          ◆ FIELD NOTES
         </p>
 
         {/* Headline — display font, poster scale */}

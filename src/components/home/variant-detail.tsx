@@ -27,29 +27,31 @@ export default function VariantDetail({ variant, reverse = false }: VariantDetai
       <div
         className={`flex min-h-[90vh] flex-col md:flex-row ${reverse ? 'md:flex-row-reverse' : ''}`}
       >
-        {/* ─── IMAGE COLUMN — photo fills the accent panel ─── */}
+        {/* ─── IMAGE COLUMN — framed photo, accent panel shows as a border ─── */}
         <div
-          className="relative overflow-hidden md:w-1/2"
+          className="relative flex overflow-hidden p-6 md:w-1/2 md:p-12"
           style={{ backgroundColor: variant.accent, minHeight: '50vh' }}
         >
-          <Image
-            src={variant.moody}
-            alt={`Scout ${variant.name} — 330ml bottle`}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
+          <div className="relative flex-1 overflow-hidden">
+            <Image
+              src={variant.moody}
+              alt={`Scout ${variant.name} — 330ml bottle`}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
 
-          {/* Subtle noise texture overlay */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-10 opacity-[0.04] mix-blend-multiply"
-            style={{
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-              backgroundSize: '256px 256px',
-            }}
-          />
+            {/* Subtle noise texture overlay */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-10 opacity-[0.04] mix-blend-multiply"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+                backgroundSize: '256px 256px',
+              }}
+            />
+          </div>
         </div>
 
         {/* ─── CONTENT COLUMN ─── */}
@@ -60,7 +62,7 @@ export default function VariantDetail({ variant, reverse = false }: VariantDetai
               className="mb-6 font-mono text-[10px] tracking-[0.3em] uppercase"
               style={{ color: variant.accent }}
             >
-              ◆ NO.&nbsp;{variant.number}&nbsp;·&nbsp;{variant.origin.toUpperCase()}
+              ◆ {variant.origin.toUpperCase()}
             </p>
 
             {/* Variant name — display, poster scale */}
