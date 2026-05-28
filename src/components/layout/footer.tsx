@@ -59,11 +59,6 @@ export default function Footer() {
             </p>
             <address className="not-italic">
               <ul className="space-y-2.5">
-                <li className="text-cream/65 font-sans text-[12px] leading-snug">
-                  123 Smith St
-                  <br />
-                  Collingwood VIC 3066
-                </li>
                 <li>
                   <a
                     href="mailto:hello@scoutbrewing.com.au"
@@ -74,12 +69,12 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://instagram.com/scoutbrewingco"
+                    href="https://instagram.com/scout.brewing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-cream/70 hover:text-cream font-mono text-[11px] tracking-[0.1em] uppercase transition-colors duration-200"
                   >
-                    @scoutbrewingco ↗
+                    @scout.brewing ↗
                   </a>
                 </li>
               </ul>

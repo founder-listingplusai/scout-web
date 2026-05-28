@@ -4,7 +4,6 @@ import Hero from '@/components/home/hero';
 import FieldNotes from '@/components/home/field-notes';
 import VariantDetail from '@/components/home/variant-detail';
 import Story from '@/components/home/story';
-import NotifyMe from '@/components/home/notify-me';
 import ScrollReveal from '@/components/ui/scroll-reveal';
 import { VARIANTS } from '@/lib/products/data';
 
@@ -33,10 +32,6 @@ export default function Home() {
 
         <ScrollReveal>
           <Story />
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <NotifyMe />
         </ScrollReveal>
       </main>
       <Footer />

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
 
 // ─── External cookie store ───────────────────────────────────────────────────
 
@@ -119,7 +120,39 @@ function AgeGateModal() {
     if (errorEl) errorEl.textContent = '';
 
     if (isAtLeast18(d, m, y)) {
-      markAgeVerified();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        markAgeVerified();
+        return;
+      }
+
+      const el = dialogRef.current;
+      if (!el) {
+        markAgeVerified();
+        return;
+      }
+
+      const inner = el.querySelector('.bg-cream');
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          markAgeVerified();
+        },
+      });
+
+      tl.to(el, {
+        opacity: 0,
+        duration: 0.35,
+        ease: 'power3.inOut',
+      }, 0);
+
+      if (inner) {
+        tl.to(inner, {
+          y: 24,
+          scale: 0.96,
+          duration: 0.35,
+          ease: 'power3.inOut',
+        }, 0);
+      }
     } else {
       window.location.assign('https://drinkwise.org.au');
     }

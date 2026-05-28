@@ -24,7 +24,7 @@ export const VARIANTS: Variant[] = [
   {
     id: 'lager',
     number: '01',
-    name: 'Lager',
+    name: 'Premium Pale Lager',
     style: 'Australian Lager',
     abv: '5.0%',
     ibu: 24,

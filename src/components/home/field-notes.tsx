@@ -22,7 +22,7 @@ export default function FieldNotes() {
           className="font-display text-navy mb-10 leading-none tracking-tight"
           style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}
         >
-          Brewed for long afternoons.
+          Brewed for exploring.
         </h2>
 
         {/* Body — Source Serif 4 italic, two paragraphs */}
