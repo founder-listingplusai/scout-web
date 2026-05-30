@@ -33,7 +33,7 @@ export default function Footer() {
                   { href: '#lowcarb', label: 'Low Carb' },
                   { href: '#story', label: 'Story' },
                   {
-                    href: 'mailto:scoutbrewingandco@gmail.com?subject=Notify+me+%E2%80%93+Scout+Brewing',
+                    href: 'mailto:scoutbrewing@gmail.com?subject=Notify+me+%E2%80%93+Scout+Brewing',
                     label: 'Notify me',
                   },
                 ].map(({ href, label }) => (
@@ -59,10 +59,10 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 <li>
                   <a
-                    href="mailto:scoutbrewingandco@gmail.com"
+                    href="mailto:scoutbrewing@gmail.com"
                     className="text-cream/70 hover:text-cream font-mono text-[11px] tracking-[0.06em] lowercase transition-colors duration-200"
                   >
-                    scoutbrewingandco@gmail.com
+                    scoutbrewing@gmail.com
                   </a>
                 </li>
                 <li>
@@ -86,8 +86,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-2.5">
               <li className="text-cream/50 font-mono text-[10px]">
-                {/* TODO: real ABN */}
-                ABN 12 345 678 901
+                ABN 57 692 697 555
               </li>
               <li>
                 <a
